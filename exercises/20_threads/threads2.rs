@@ -19,7 +19,7 @@ struct JobStatus {
 
 fn main() {
     // TODO: `Arc` isn't enough if you want a **mutable** shared state
-    let status = Arc::new(JobStatus { jobs_completed: 0 });
+    let status = Mutex::new(JobStatus { jobs_completed: 0 });
 
     let mut handles = vec![];
     for _ in 0..10 {
@@ -38,5 +38,5 @@ fn main() {
     }
 
     // TODO: Print the value of `JobStatus.jobs_completed`
-    println!("Jobs completed: {}", ???);
+    println!("Jobs completed: {}", status.as_ref().jobs_completed);
 }
